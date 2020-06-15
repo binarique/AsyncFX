@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 15, 2020, 12:50:03 PM
+    Author     : ICY media
+*/
+.list-view {
+    -fx-padding: 5px 0px 0px 0px;
+    -fx-background-color: #ffffff;
+}
+
+.list-cell {
+    
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 2px ;
+    -fx-cursor: hand;
+}
+
+.list-cell:empty {
+    -fx-padding: 2px;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+
+.list-cell:filled:selected {
+  -fx-background-color: transparent ;
+  -fx-background-insets: 0 ;
+}
+
+.list-cell:filled:hover{
+   -fx-background-color: transparent; 
+}

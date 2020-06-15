@@ -1,3 +1,12 @@
+The libray requires
+the following dependencies
+		
+commons-codec-1.10.jar		
+commons-logging-1.2.jar		
+gson-2.8.0.jar		
+httpclient-4.5.5.jar		
+httpcore-4.4.9.jar
+
 
 //EXAMPLE 1
 

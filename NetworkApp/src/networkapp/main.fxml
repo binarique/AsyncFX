@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="593.0" prefWidth="654.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.241" fx:controller="networkapp.MainController">
+   <children>
+      <VBox prefHeight="595.0" prefWidth="651.0" AnchorPane.bottomAnchor="-58.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="64.0" prefWidth="654.0" style="-fx-background-color: #0078D7;">
+               <children>
+                  <TextField fx:id="search_bar" onKeyTyped="#searchFiles" prefHeight="31.0" prefWidth="535.0" style="-fx-background-color: #0058BD; -fx-font-size: 16px;" styleClass="search-bar" stylesheets="@style.css" />
+               </children>
+            </HBox>
+            <VBox prefHeight="531.0" prefWidth="534.0" style="-fx-background-color: #ccc;">
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+               <children>
+                  <JFXProgressBar fx:id="progress_bar" prefHeight="4.0" prefWidth="534.0" />
+                  <ListView fx:id="search_list" prefHeight="526.0" prefWidth="534.0" style="-fx-background-color: #cccccc;" stylesheets="@list_view_style.css" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
