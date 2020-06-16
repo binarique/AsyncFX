@@ -35,8 +35,10 @@
 /*     */   private OutputStream outputStream;
 /*     */   
 /*     */   private PrintWriter writer;
+            
+            private int BUFFER_SIZE = 1024;
  
-/*     */   public UploadFX(String RequestURL, String RequestMethod, String charset){
+/*     */    public UploadFX(String RequestURL, String RequestMethod, String charset){
               this.lock = new UploadLock();
 /*     */     String ncharset = (charset == null)?  "UTF-8" : charset;
               this.charset = ncharset;
@@ -55,10 +57,13 @@
             public void setConcurrent(boolean concurrent){
              this.concurrent = concurrent;   
             }
-
+             
+            public void setBufferLength(int BUFFER_LENGTH){
+            this.BUFFER_SIZE = BUFFER_LENGTH;    
+            }
             public abstract void onStart();
 
-/*     */    public abstract void onProgress(double args1, int args2);
+/*     */    public abstract void onProgress(long totalSize, long progressSize);
 /*     */    
              public abstract T1 doInBackground();
              
@@ -112,8 +117,8 @@
 /*  90 */       FileInputStream inputStream = new FileInputStream(file);
 /*     */       
 /*  92 */       long totalSize = inputStream.available();
-/*     */       
-/*  96 */       byte[] buffer = new byte[1024];
+/*     */ 
+/*  96 */       byte[] buffer = new byte[BUFFER_SIZE];
 /*     */       
 /*  98 */       int bytesRead = -1;
 /*     */       
@@ -121,8 +126,8 @@
 /*     */       
 /* 102 */       while ((bytesRead = inputStream.read(buffer)) != -1) {
 /* 103 */         recFileSize += bytesRead;
-/* 105 */         progress = (int)(recFileSize * 100L / totalSize);
-/* 106 */         publishProgress(progress);
+/* 105 */         
+/* 106 */         publishProgress(totalSize, recFileSize);
 /* 107 */         this.outputStream.write(buffer, 0, bytesRead);
 /*     */       } 
 /* 109 */       this.outputStream.flush();
@@ -138,9 +143,8 @@
 /*     */     } 
             return response;    
             }
-
+     
           
-
              private void addHeaderField(String name, String value) {
              this.writer.append(String.valueOf(name) + ": " + value).append("\r\n");
              this.writer.flush();
@@ -170,10 +174,10 @@
             }
             lock.registerThread();  
              }
-         
+             
              final T1 results = doInBackground();
              Platform.runLater(() -> onFinish(results));
-            
+             
             if(lock != null){
            lock.removeThread();
 	   synchronized(lock) {
@@ -213,10 +217,9 @@
 /* 159 */     return sb.toString();
 /*     */   }
 /*     */   
-/*     */   private void publishProgress(int value) {
+/*     */   private void publishProgress(long totalSize, long ProgressSize) {
              Platform.runLater(() ->{ 
-/* 163 */    final double doubleValue = value / 100.0D * 1.0D;
-/* 164 */     onProgress(doubleValue, value);
+/* 164 */     onProgress(totalSize, ProgressSize);
              });
 /*     */   }
 
